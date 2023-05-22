@@ -15,40 +15,45 @@
   </head>
   <body>
     <sidebar></sidebar>
-    <form class="signin-form">
-      <h1>로그인</h1>
-      <div class="wrap-margin-50">
-        <div class="form-floating mb-3">
-          <input
-            type="user_name"
-            class="form-control"
-            id="user_name"
-            placeholder="user_name"
-          />
-          <label for="user_name">ID</label>
+    <div class="wrap-left-250">
+      <form>
+        <div class="signin-form">
+        <h1>로그인</h1>
+        <div class="wrap-margin-50">
+          <div class="form-floating mb-3">
+            <input
+              type="user_name"
+              class="form-control"
+              id="user_name"
+              placeholder="user_name"
+            />
+            <label for="user_name">ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="password"
+            />
+            <label for="password">Password</label>
+          </div>
         </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="password"
-          />
-          <label for="password">Password</label>
+        <div class="d-grid gap-2">
+          <div>
+            <button
+              class="button-red"
+              type="button"
+              onclick="handleSigninButton()"
+            >
+              로그인
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="d-grid gap-2">
-        <div>
-          <button
-            class="button-red"
-            type="button"
-            onclick="handleSigninButton()"
-          >
-            로그인
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+
+
     <script src="scripts/base_url.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="scripts/signin.js"></script>
