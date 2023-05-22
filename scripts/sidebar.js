@@ -13,33 +13,29 @@ async function injectNavbar() {
 
     const payload = localStorage.getItem("payload");
     if (payload) {
-        const payload_parse = JSON.parse(payload)
-
-
-        const intro = document.getElementById("intro")
-        intro.innerText = `${payload_parse.user_name}님`
 
         const mypage = document.getElementById("mypage")
         mypage.innerText = "마이페이지"
 
 
-        let navbarRight = document.getElementById("navbar-right")
+        let ul = document.getElementById("li-leftbar")
         let newLi = document.createElement("li")
-        newLi.setAttribute("class", "nav-item")
 
-        let logoutBtn = document.createElement("button")
-        logoutBtn.setAttribute("class", "nav-link btn")
+
+        let logoutBtn = document.createElement("a")
+        logoutBtn.href = "#"
+        logoutBtn.style.color = "#FFF6C3"
         logoutBtn.innerText = "로그아웃"
         logoutBtn.setAttribute("onClick", "handleLogout()")
 
         newLi.appendChild(logoutBtn)
 
-        navbarRight.appendChild(newLi)
+        ul.insertBefore(newLi, ul.childNodes[2]);
 
 
-        let signInButton = document.getElementById("navbar-signin")
+        let signInButton = document.getElementById("li-signin")
         signInButton.style.display = "none";
-        let signUpButton = document.getElementById("navbar-signup")
+        let signUpButton = document.getElementById("li-signup")
         signUpButton.style.display = "none";
     }
 }
