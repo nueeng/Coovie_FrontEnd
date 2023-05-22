@@ -48,5 +48,3 @@ function handleLogout() {
     localStorage.removeItem("payload")
     location.reload()
 }
-// sytle.display = "none";을 줬으면 다시 block같은거로 바꿔줘야함
-// 여기선 relaod()가 새로고침이라 모든 했던 자바스크립트 기록이 사라져서 없어도 괜찮은 것

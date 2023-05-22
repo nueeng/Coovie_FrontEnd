@@ -15,54 +15,57 @@
   </head>
   <body>
     <sidebar></sidebar>
-    <form class="signin-form">
-      <h1>회원가입</h1>
-      <div class="wrap-margin-50">
-        <div class="form-floating mb-3">
-          <input
-            type="user_name"
-            class="form-control"
-            id="user_name"
-            placeholder="user_name"
-          />
-          <label for="user_name">ID</label>
+    <div class="wrap-left-250">
+      <form class="signin-form">
+        <h1>회원가입</h1>
+        <div class="wrap-margin-50">
+          <div class="form-floating mb-3">
+            <input
+              type="user_name"
+              class="form-control"
+              id="user_name"
+              placeholder="user_name"
+            />
+            <label for="user_name">ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="email"
+            />
+            <label for="email">Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="password"
+            />
+            <label for="password">Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="re_password"
+              placeholder="re_password"
+            />
+            <label for="re_password">Password Check</label>
+          </div>
         </div>
-        <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="email"
-          />
-          <label for="email">Email</label>
+        <div class="d-grid gap-2">
+          <div>
+            <button class="button-red" type="button" onclick="handleSignup()">
+              회원가입
+            </button>
+          </div>
         </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="password"
-          />
-          <label for="password">Password</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="re_password"
-            placeholder="re_password"
-          />
-          <label for="re_password">Password Check</label>
-        </div>
-      </div>
-      <div class="d-grid gap-2">
-        <div>
-          <button class="button-red" type="button" onclick="handleSignup()">
-            회원가입
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+
     <script src="scripts/base_url.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="scripts/signup.js"></script>
