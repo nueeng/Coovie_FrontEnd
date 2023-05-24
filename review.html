@@ -16,10 +16,13 @@
   <body>
     <sidebar></sidebar>
     <div class="wrap-left-250">
-      <div class="wrap-margin-100">
-        <h2>후기 게시판</h2>
+      <div class="wrap-margin-100" id="review-container">
+        <h2>영화 리뷰 게시판</h2>
         <hr />
-        <div class="card" style="width: 18rem" id="review-movie"></div>
+        <div class="row">
+          <div class="col-3 mt-4" style="width: 18rem" id="review-movie"></div>
+          <div class="col mt-4" id="review-content"></div>
+        </div>
       </div>
     </div>
     <script src="scripts/base_url.js"></script>
