@@ -1,6 +1,7 @@
-// 
+// 글작성에 사용할 토큰
 const token = localStorage.getItem("access")
 
+// Movie API
 async function getMovies() {
     const response = await fetch(`${backend_base_url}/main/`)
 
@@ -13,6 +14,7 @@ async function getMovies() {
     }
 }
 
+// Review GET API
 async function getReviews() {
     const response = await fetch(`${backend_base_url}/reviews/`)
 
@@ -25,8 +27,9 @@ async function getReviews() {
     }
 }
 
-// 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
+// Review POST API
 async function postReview(id) {
+    // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
     movie = await getMovies() // await를 붙여야만 하는 이유가 궁금하다
 
     let content = document.getElementById(`movie-content-${id}`).value;

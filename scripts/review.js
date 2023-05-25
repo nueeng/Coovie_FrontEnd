@@ -170,11 +170,11 @@ window.addEventListener('load', async function () {
         reviewForm.appendChild(reviewRatingBtn);
     });
     // 로그인한지 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
+    // getElementsByClassName로 가져온 객체는 HTMLinclude라는 살아있는 객체. 그래서 Array.from으로 배열에 따로 담아줘야 합니다. 이후 for문
     function checkLogin() {
         const payload = localStorage.getItem("payload");
         const postReviewForms = document.getElementsByClassName("row-1");
         const postReviewFormsArray = Array.from(postReviewForms);
-        console.log(postReviewFormsArray);
         if (!payload) {
             postReviewFormsArray.forEach(postReviewForm => postReviewForm.style.display = "none");
         }
