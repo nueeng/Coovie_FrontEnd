@@ -1,3 +1,4 @@
+// 
 const token = localStorage.getItem("access")
 
 async function getMovies() {

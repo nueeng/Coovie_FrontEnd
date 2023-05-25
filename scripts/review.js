@@ -120,7 +120,7 @@ window.addEventListener('load', async function () {
         });
         // 리뷰 POST div(Form)
         const reviewForm = document.createElement("div");
-        reviewForm.setAttribute("class", "row-1 ");
+        reviewForm.setAttribute("class", "row-1");
         reviewForm.style.position = "sticky";
         reviewForm.style.top = "100%";
         reviewForm.style.marginTop = "10px";
@@ -169,4 +169,17 @@ window.addEventListener('load', async function () {
         reviewRatingDiv.appendChild(reviewRatingInput);
         reviewForm.appendChild(reviewRatingBtn);
     });
+    // 로그인한지 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
+    function checkLogin() {
+        const payload = localStorage.getItem("payload");
+        const postReviewForms = document.getElementsByClassName("row-1");
+        const postReviewFormsArray = Array.from(postReviewForms);
+        console.log(postReviewFormsArray);
+        if (!payload) {
+            postReviewFormsArray.forEach(postReviewForm => postReviewForm.style.display = "none");
+        }
+    }
+
+    checkLogin();
 });
+
