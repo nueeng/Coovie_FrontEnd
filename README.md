@@ -10,3 +10,5 @@
 - Review rating star css
 - Validation?
 - Review page refresh scroll
+- Improve folder structure
+- Implement random choice 10 movie from frontend
