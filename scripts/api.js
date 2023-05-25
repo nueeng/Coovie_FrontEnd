@@ -24,23 +24,33 @@ async function getReviews() {
     }
 }
 
-async function postReview() {
-    console.log("버튼눌림")
-    movie = await getMovies()
-    // 여러 리뷰를 쓰게되면 가변이니까 let으로..?
-    let content = document.querySelector(`movie-content-${movie.id}`).value
-    let rating = document.querySelector(`#movie-rating-${movie.id}`).value
+// 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
+async function postReview(id) {
+    movie = await getMovies() // await를 붙여야만 하는 이유가 궁금하다
 
-    let response = await fetch(`${backend_base_url}/reviews/${movie.id}/`, {
+    let content = document.getElementById(`movie-content-${id}`).value;
+    let rating = document.getElementById(`movie-rating-${id}`).value;
+
+    let response = await fetch(`${backend_base_url}/reviews/${id}/`, {
         headers: {
             'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         method: 'POST',
         body: JSON.stringify({
             "content": content,
             "rating": rating
         })
-    })
-    console.log(response)
-    return response
+    });
+
+    if (response.status == 201) {
+        alert("리뷰가 작성되었습니다.")
+        window.location.replace(`${frontend_base_url}/review.html`)
+        // 새로고침 후 스크롤이 이동되었으면 좋겠는데.. 실패
+        document.getElementById(`movie-content-${id}`).scrollIntoView();
+    } else {
+        console.log(response)
+        // validation을 원래 따로 다 이렇게?? 백엔드에서 해놓은건 의미가 없나?
+        alert(response.status)
+    }
 }

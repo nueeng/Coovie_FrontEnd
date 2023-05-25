@@ -2,8 +2,6 @@ window.addEventListener('load', async function () {
 
     movies = await getMovies()
     reviews = await getReviews()
-    console.log(reviews)
-    console.log(movies)
 
     const movie_list = document.getElementById("review-movie");
 
@@ -39,7 +37,7 @@ window.addEventListener('load', async function () {
         // 너무 길면 자르기 의논
         newMovieOverview.innerHTML = newMovieOverview.innerHTML.substring(0, 150);
         if (newMovieOverview.innerHTML.length >= 150) {
-            newMovieOverview.innerHTML += "..";
+            newMovieOverview.innerHTML += "...";
         }
         // Movie ul 리스트
         const newMovieUl = document.createElement("ul");
@@ -90,22 +88,27 @@ window.addEventListener('load', async function () {
         matchingReviews.forEach(review => {
             // 리뷰 GET 박스
             const newReviewRow = document.createElement("div");
-            newReviewRow.setAttribute("class", "row align-items-center mt-3");
+            newReviewRow.setAttribute("class", "row mt-3");
+            newReviewRow.style.backgroundColor = "aliceblue";
+            newReviewRow.style.borderRadius = "15px";
             // 리뷰 컨텐츠
             const newReviewContnet = document.createElement("p");
             newReviewContnet.innerHTML = review.content;
             newReviewContnet.style.display = "inline";
+            newReviewContnet.style.fontSize = "1.2rem";
             // 리뷰 작성자
             const newReviewUser = document.createElement("span");
             newReviewUser.innerHTML = review.user;
+            newReviewUser.style.display = "inline-block";
             newReviewUser.style.textAlign = "end";
             // 리뷰 평점 -> 별로 표기 연구
             const newReviewRating = document.createElement("span");
-            newReviewRating.innerHTML = `rating : ${review.rating}`;
+            newReviewRating.innerHTML = `평점 : ${review.rating}`;
             newReviewRating.style.color = "orange";
             // 리뷰 좋아요 -> 버튼으로 누르면 좋아요 오르게끔 구현할수있을까
             const newReviewLike = document.createElement("span");
-            newReviewLike.innerHTML = `좋아요 수 : ${review.likes_count}`;
+            newReviewLike.innerHTML = `좋아요 : ${review.likes_count}`;
+            newReviewLike.style.color = "crimson";
 
             newReviewRow.appendChild(newReviewContnet);
             newReviewRow.appendChild(newReviewUser);
@@ -117,9 +120,10 @@ window.addEventListener('load', async function () {
         });
         // 리뷰 POST div(Form)
         const reviewForm = document.createElement("div");
-        reviewForm.setAttribute("class", "row-1");
+        reviewForm.setAttribute("class", "row-1 ");
         reviewForm.style.position = "sticky";
         reviewForm.style.top = "100%";
+        reviewForm.style.marginTop = "10px";
         // 리뷰 작성 content
         const reviewContent = document.createElement("input");
         reviewContent.setAttribute("class", "form-control");
@@ -136,7 +140,8 @@ window.addEventListener('load', async function () {
         const reviewRatingLabel = document.createElement("label");
         reviewRatingLabel.setAttribute("class", "form-label");
         reviewRatingLabel.setAttribute("for", `movie-rating-${movie.id}`);
-        reviewRatingLabel.innerHTML = "평점";
+        // 전문가 평점이 10점만점이라 조금 어색한거같기도하고 그대로해도 될것같기도하고
+        reviewRatingLabel.innerHTML = "평점(0 ~ 5)";
         // 리뷰 별점 input
         const reviewRatingInput = document.createElement("input");
         reviewRatingInput.setAttribute("type", "range");
@@ -150,7 +155,8 @@ window.addEventListener('load', async function () {
         reviewRatingBtn.setAttribute("type", "button");
         reviewRatingBtn.setAttribute("class", "btn btn-danger");
         reviewRatingBtn.setAttribute("id", `movie-button-${movie.id}`);
-        reviewRatingBtn.setAttribute("onclick", "postReview()");
+        // 버튼에 movie.id 주고, postReview()함수에 movie.id 자체를 parameter로 넣어서 postReview(id)에서 id를 모두 돌려서 사용할 수 있도록..!
+        reviewRatingBtn.setAttribute("onclick", `postReview(${movie.id})`);
         reviewRatingBtn.style.float = "right";
         reviewRatingBtn.style.display = "inline";
         reviewRatingBtn.style.marginTop = "10px";
