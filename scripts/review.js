@@ -1,11 +1,14 @@
 window.addEventListener('load', async function () {
-
-    movies = await getMovies()
+    movies = await getPaginatedMovies(page)
     reviews = await getReviews()
+
+    console.log(movies)
+    console.log(reviews)
 
     const movie_list = document.getElementById("review-movie");
 
-    movies.forEach(movie => {
+    // Pagination 하면서 response가 object의 results속성에 영화가 담기는거로 바뀌어서 .results 추가
+    movies.results.forEach(movie => {
         // 카드 이미지
         const newMovieImg = document.createElement("img");
         newMovieImg.setAttribute("class", "card-img-top");
@@ -169,7 +172,8 @@ window.addEventListener('load', async function () {
         reviewRatingDiv.appendChild(reviewRatingInput);
         reviewForm.appendChild(reviewRatingBtn);
     });
-    // 로그인한지 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
+
+    // 로그인 상태를 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
     // getElementsByClassName로 가져온 객체는 HTMLinclude라는 살아있는 객체. 그래서 Array.from으로 배열에 따로 담아줘야 합니다. 이후 for문
     function checkLogin() {
         const payload = localStorage.getItem("payload");
@@ -181,5 +185,5 @@ window.addEventListener('load', async function () {
     }
 
     checkLogin();
-});
 
+});

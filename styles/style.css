@@ -113,3 +113,9 @@ h2 {
   width: 100px;
   height: 40px;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
