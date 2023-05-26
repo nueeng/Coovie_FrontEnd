@@ -58,3 +58,21 @@ async function postReview(id) {
         alert(response.status)
     }
 }
+
+// 후기 Read 함수
+async function getMypageReviews() {
+    const payload = localStorage.getItem("payload");
+    const payload_parse = JSON.parse(payload);
+    const user_id = payload_parse.user_id;
+
+    const response = await fetch(`${backend_base_url}/users/mypage/${user_id}/`, {
+        headers: { "Authorization": "Bearer " + localStorage.getItem("access") }
+    });
+
+    if (response.status == 200) {
+        const response_json = await response.json();
+        return response_json;
+    } else {
+        alert("불러오는데 실패했습니다.");
+    }
+}
