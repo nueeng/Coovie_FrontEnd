@@ -1,10 +1,11 @@
-async function fetchMovies() {
-    try {
+window.addEventListener('load',async function(){
         //백엔드 메인에서 json 데이터 받아오기
-        const response = await fetch(`${backend_base_url}/main/`);
-        const data = await response.json();
-        const movies = getRandomMovies(data, 6);
+        
+        data = await getMovies()
+        movies = await getRandomMovies(data, 6);
+
         const moviesContainer = document.getElementById('random-movies');
+
         movies.forEach(movie => {
             const MovieImg = document.createElement("img");
             MovieImg.setAttribute("class", "card-img-top");
@@ -82,14 +83,5 @@ async function fetchMovies() {
             // moviesContainer.appendChild(MovieLine);
 
         });
-    } catch (error) {
-        console.error('영화 데이터를 가져오는 중 에러 발생:', error);
-    }
-}
-
-function getRandomMovies(movies, count){
-    const shuffled = movies.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-}
-
-window.addEventListener('load', fetchMovies);
+    } 
+);
