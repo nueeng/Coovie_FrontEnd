@@ -85,3 +85,9 @@ window.addEventListener('load',async function(){
         });
     } 
 );
+
+// 다시 검색 버튼 클릭 이벤트 핸들러
+const reloadButton = document.getElementById("reload_movies")
+reloadButton.addEventListener('click', function () {
+    location.reload(); // 페이지 리로드
+});
