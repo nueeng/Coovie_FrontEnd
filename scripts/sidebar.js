@@ -12,10 +12,10 @@ async function injectNavbar() {
 
 
     const payload = localStorage.getItem("payload");
-    if (payload) {
+    if (payload) {       
 
         const mypage = document.getElementById("mypage")
-        mypage.innerText = "마이페이지"
+        mypage.innerText = "마이페이지"       
 
 
         let ul = document.getElementById("li-leftbar")
