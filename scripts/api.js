@@ -1,6 +1,17 @@
 // 글작성에 사용할 토큰
 const token = localStorage.getItem("access")
 
+// URL에서 쿼리 파라미터 추출
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+// movieId 쿼리 파라미터 값 가져오기
+const movieId = urlParams.get('movieId');
+
+// movieId 값을 활용하여 필요한 작업 수행
+// 예시: 해당 영화의 상세 정보를 가져와서 화면에 표시하는 등의 작업
+console.log('Selected movie ID:', movieId);
+
 // Movie API
 async function getMovies() {
     const response = await fetch(`${backend_base_url}/main/`)
@@ -82,4 +93,34 @@ async function getMypageReviews() {
 async function getRandomMovies(movies, count){
     const shuffled = movies.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
+}
+
+
+
+// 추천 영화 호출 함수
+async function handleLoadEvent() {
+    const response = await fetch(`${backend_base_url}/recommendation/`, {
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            target_movie_id: movieId,
+        }),
+    });
+
+    const response_json = await response.json();
+    // response_json 활용
+    return response_json
+}
+
+// 선택한 영화 호출 함수
+async function getSelectedMovie() {
+    const response = await fetch(`${backend_base_url}/recommendation/${movieId}/`)
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패했습니다.")
+    }
 }
