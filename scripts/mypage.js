@@ -7,7 +7,6 @@ window.onload = async function loadReviews() {
 
     for (let i = 0; i < user_reviews.length; i++) {
         const review = user_reviews[i];
-        console.log(review.movie[0])
 
         const reviewCard = document.createElement("div");
         reviewCard.classList.add("review-card");
