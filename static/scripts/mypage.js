@@ -110,8 +110,6 @@ window.onload = async function loadReviews() {
             }
         });
 
-
-
         // 삭제 버튼 클릭시 이벤트
         deleteBtn.addEventListener("click", async function () {
             const confirmation = confirm("정말로 후기를 삭제하시겠습니까?");

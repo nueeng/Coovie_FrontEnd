@@ -1,7 +1,7 @@
 window.addEventListener('load', async function () {
 
     movies = await getMovies()
-    reviews = await getReviews()
+    reviews = await getReviewpageReviews()
 
     const movie_list = document.getElementById("review-movie");
 

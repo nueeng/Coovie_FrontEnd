@@ -1,6 +1,6 @@
-// 글작성에 사용할 토큰
+const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "http://127.0.0.1:8000"
 const token = localStorage.getItem("access")
-
 // URL에서 쿼리 파라미터 추출
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -12,10 +12,52 @@ const movieId = urlParams.get('movieId');
 // 예시: 해당 영화의 상세 정보를 가져와서 화면에 표시하는 등의 작업
 console.log('Selected movie ID:', movieId);
 
+
+// Signin 함수
+async function handleSignin() {
+    const user_name = document.getElementById("user_name").value
+    const password = document.getElementById("password").value
+
+    const response = await fetch(`${backend_base_url}/users/sign-in/`, {
+        headers: {
+            "content-type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "user_name": user_name,
+            "password": password
+        })
+    })
+
+    return response
+}
+
+// Signup 함수
+async function handleSignup() {
+    const user_name = document.getElementById("user_name").value
+    const password = document.getElementById("password").value
+    const re_password = document.getElementById("re_password").value
+    const email = document.getElementById("email").value
+    // ${backend_base_url}
+    const response = await fetch(`${backend_base_url}/users/sign-up/`, {
+        headers: {
+            "content-type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "user_name": user_name,
+            "email": email,
+            "password": password,
+            "re_password": re_password
+        })
+    })
+
+    return response
+}
+
 // Movie API
 async function getMovies() {
     const response = await fetch(`${backend_base_url}/main/`)
-
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -26,9 +68,8 @@ async function getMovies() {
 }
 
 // Review GET API
-async function getReviews() {
+async function getReviewpageReviews() {
     const response = await fetch(`${backend_base_url}/reviews/`)
-
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -70,7 +111,7 @@ async function postReview(id) {
     }
 }
 
-// 후기 Read 함수
+// mypage 후기 GET 함수
 async function getMypageReviews() {
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload);
@@ -89,13 +130,10 @@ async function getMypageReviews() {
 }
 
 // 영화 랜덤 추천 함수
-
-async function getRandomMovies(movies, count){
+async function getRandomMovies(movies, count) {
     const shuffled = movies.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
-
-
 
 // 추천 영화 호출 함수
 async function handleLoadEvent() {
@@ -123,4 +161,11 @@ async function getSelectedMovie() {
     } else {
         alert("불러오는데 실패했습니다.")
     }
+}
+
+function checkSignin() {
+    const payload = localStorage.getItem("payload");
+    if (payload) {
+        window.location.replace(`${frontend_base_url}/`)
+    };
 }
