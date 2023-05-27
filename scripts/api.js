@@ -76,3 +76,10 @@ async function getMypageReviews() {
         alert("불러오는데 실패했습니다.");
     }
 }
+
+// 영화 랜덤 추천 함수
+
+async function getRandomMovies(movies, count){
+    const shuffled = movies.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
