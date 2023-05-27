@@ -19,7 +19,8 @@ async function fetchMovies() {
             MovieImg.addEventListener("click", function() {
                 // 영화의 ID를 추출하여 URL에 추가
                 const movieId = movie.id;
-                const detailPageUrl = `${frontend_base_url}/select_movie/${movieId}.html`;
+                // const detailPageUrl = `${frontend_base_url}/select_movie/${movieId}.html`;
+                const detailPageUrl = `${frontend_base_url}/recommend.html?movieId=${movieId}`;
         
                 // 상세 페이지로 이동
                 window.location.href = detailPageUrl;
