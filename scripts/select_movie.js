@@ -9,25 +9,23 @@ async function fetchMovies() {
             const MovieImg = document.createElement("img");
             MovieImg.setAttribute("class", "card-img-top");
             MovieImg.setAttribute("alt", "https://user-images.githubusercontent.com/127704498/240243854-3122696a-1247-442b-9f4b-4bf357419313.jpg");
-           
+
             if (movie.poster_path) {
                 MovieImg.setAttribute("src", movie.poster_path);
             } else {
                 MovieImg.setAttribute("src", "https://user-images.githubusercontent.com/127704498/240243854-3122696a-1247-442b-9f4b-4bf357419313.jpg");
             }
             //영화 포스터 클릭시 상세 페이지로 이동
-            MovieImg.addEventListener("click", function() {
+            MovieImg.addEventListener("click", function () {
                 // 영화의 ID를 추출하여 URL에 추가
                 const movieId = movie.id;
                 // const detailPageUrl = `${frontend_base_url}/select_movie/${movieId}.html`;
                 const detailPageUrl = `${frontend_base_url}/recommend.html?movieId=${movieId}`;
-        
+
                 // 상세 페이지로 이동
                 window.location.href = detailPageUrl;
             });
 
-            
-            
             const MovieCard = document.createElement("div");
             MovieCard.setAttribute("class", "card col-3 d-inline-block");
             MovieCard.style.padding = "0";
@@ -44,7 +42,7 @@ async function fetchMovies() {
             const MovieOverview = document.createElement("p");
             MovieOverview.setAttribute("class", "card-text");
             MovieOverview.innerHTML = movie.overview;
-             
+
             MovieOverview.innerHTML = movie.overview;
             MovieOverview.innerHTML = MovieOverview.innerHTML.substring(0, 150);
             if (MovieOverview.innerHTML.length >= 150) {
@@ -88,9 +86,15 @@ async function fetchMovies() {
     }
 }
 
-function getRandomMovies(movies, count){
+function getRandomMovies(movies, count) {
     const shuffled = movies.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
 
 window.addEventListener('load', fetchMovies);
+
+// 다시 검색 버튼 클릭 이벤트 핸들러
+const reloadButton = document.getElementById("reload_movies")
+reloadButton.addEventListener('click', function () {
+    location.reload(); // 페이지 리로드
+});
