@@ -110,7 +110,6 @@ async function postReview(id) {
         // 새로고침 후 스크롤이 이동되었으면 좋겠는데.. 실패
         document.getElementById(`movie-content-${id}`).scrollIntoView();
     } else {
-        console.log(response)
         // validation을 원래 따로 다 이렇게?? 백엔드에서 해놓은건 의미가 없나?
         alert(response.status)
     }
