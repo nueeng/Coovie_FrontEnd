@@ -92,12 +92,11 @@ async function getReviewPageReviews() {
 
 // Review POST API
 async function postReview(id) {
-    // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
-    movie = await getMovies() // await를 붙여야만 하는 이유가 궁금하다
 
     let content = document.getElementById(`movie-content-${id}`).value;
     let rating = document.getElementById(`movie-rating-${id}`).value;
 
+    // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
     let response = await fetch(`${backend_base_url}/reviews/${id}/`, {
         headers: {
             'content-type': 'application/json',

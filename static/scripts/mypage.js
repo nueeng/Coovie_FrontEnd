@@ -26,7 +26,11 @@ window.onload = async function loadReviews() {
 
         const rateCell = document.createElement("div");
         rateCell.classList.add("rate-cell");
-        rateCell.textContent = getStarRating(review.rating);
+        if (review.rating == "0") {
+            rateCell.textContent = '❌';
+        } else {
+            rateCell.textContent = getStarRating(review.rating);
+        }
         contentCell.appendChild(rateCell);
 
         reviewCard.appendChild(contentCell);
@@ -70,9 +74,9 @@ window.onload = async function loadReviews() {
                     input: 'range',
                     inputLabel: '평점',
                     inputAttributes: {
-                        min: 1.0,
-                        max: 5.0,
-                        step: 0.5
+                        min: "0",
+                        max: "5",
+                        step: "1"
                     },
                     inputValue: review.rating,
                     showCancelButton: true,
@@ -85,8 +89,9 @@ window.onload = async function loadReviews() {
 
                 if (updatedRating) {
                     // rating 값이 무조건 float형으로 들어가야 하므로 parseFloat과 toFixed(1)을 활용해 소수점 아래 1자리로 값을 제한합니다.
-                    const floatRating = parseFloat(updatedRating).toFixed(1);
-                    console.log(floatRating)
+                    // rating을 IntegerField로 바꾸면서 int로 바꿨습니다!
+                    const intRating = parseInt(updatedRating)
+                    console.log(intRating)
                     const response = await fetch(`${backend_base_url}/reviews/${review.movie[0]}/${review.id}/`, {
                         method: "PUT",
                         headers: {
@@ -95,7 +100,7 @@ window.onload = async function loadReviews() {
                         },
                         body: JSON.stringify({
                             "content": updatedContent,
-                            "rating": floatRating
+                            "rating": intRating
                         })
                     });
 
