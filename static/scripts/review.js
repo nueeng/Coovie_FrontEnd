@@ -21,6 +21,14 @@ function displayMovies(movies) {
         const newMovieCard = document.createElement("div");
         newMovieCard.setAttribute("class", "card col-3");
         newMovieCard.style.padding = "0";
+
+        newMovieCard.addEventListener("click", function () {
+            const movieId = movie.id;
+            const detailPageUrl = `${frontend_base_url}/recommend.html?movieId=${movieId}`;
+            window.location.href = detailPageUrl;
+
+        });
+
         // Movie 카드 바디
         const newMovieCardBody = document.createElement("div");
         newMovieCardBody.setAttribute("class", "card-body");
@@ -47,9 +55,9 @@ function displayMovies(movies) {
         // Movie li 장르
         const newMovieGenre = document.createElement("li");
         newMovieGenre.setAttribute("class", "list-group-item");
-        // for (genre = 0; genre < movie.genres.length; genre++) {
-        //     newMovieGenre.innerHTML += `${movie.genres[genre]}, `;
-        // }
+        for (genre = 0; genre < movie.genres.length; genre++) {
+            newMovieGenre.innerHTML += `${movie.genres[genre]}, `;
+        }
         // replace() 메서드가 문자열을 수정하는 것이 아니라 새로운 문자열을 반환하기 때문에 =로 지정해줘야한다.
         newMovieGenre.innerHTML = newMovieGenre.innerHTML.replace(/,\s*$/, "");
         // Movie li 평점
