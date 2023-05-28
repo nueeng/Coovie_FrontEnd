@@ -49,6 +49,12 @@ window.addEventListener('load', async function () {
     moviePoster.setAttribute("alt", selectedMovie.title);
     moviePoster.setAttribute("style", "width: 350px; height: auto;");
     moviePoster.classList.add("img-fluid");
+    moviePoster.addEventListener("click", function () {
+        const pageId = selectedMovie.page;
+        const reviewPageUrl = `${frontend_base_url}/review.html?page=${pageId}`;
+        window.location.href = reviewPageUrl;
+
+    });
 
 
     movieDescriptionWrapper.appendChild(movieTitle);
