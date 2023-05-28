@@ -1,6 +1,6 @@
-// 글작성에 사용할 토큰
+const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "http://127.0.0.1:8000"
 const token = localStorage.getItem("access")
-
 // URL에서 쿼리 파라미터 추출
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -8,14 +8,62 @@ const urlParams = new URLSearchParams(queryString);
 // movieId 쿼리 파라미터 값 가져오기
 const movieId = urlParams.get('movieId');
 
-// movieId 값을 활용하여 필요한 작업 수행
-// 예시: 해당 영화의 상세 정보를 가져와서 화면에 표시하는 등의 작업
-console.log('Selected movie ID:', movieId);
+
+// Signin 함수
+async function handleSignin() {
+    const user_name = document.getElementById("user_name").value
+    const password = document.getElementById("password").value
+
+    const response = await fetch(`${backend_base_url}/users/sign-in/`, {
+        headers: {
+            "content-type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "user_name": user_name,
+            "password": password
+        })
+    })
+
+    return response
+}
+
+// Signup 함수
+async function handleSignup() {
+    const user_name = document.getElementById("user_name").value
+    const password = document.getElementById("password").value
+    const re_password = document.getElementById("re_password").value
+    const email = document.getElementById("email").value
+
+    const response = await fetch(`${backend_base_url}/users/sign-up/`, {
+        headers: {
+            "content-type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            "user_name": user_name,
+            "email": email,
+            "password": password,
+            "re_password": re_password
+        })
+    })
+    return response
+}
 
 // Movie API
 async function getMovies() {
     const response = await fetch(`${backend_base_url}/main/`)
 
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패했습니다.")
+    }
+}
+
+async function getPaginatedMovies(page) {
+    const response = await fetch(`${backend_base_url}/movie/?page=${page}`)
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -26,9 +74,8 @@ async function getMovies() {
 }
 
 // Review GET API
-async function getReviews() {
+async function getReviewPageReviews() {
     const response = await fetch(`${backend_base_url}/reviews/`)
-
 
     if (response.status == 200) {
         const response_json = await response.json()
@@ -40,12 +87,11 @@ async function getReviews() {
 
 // Review POST API
 async function postReview(id) {
-    // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
-    movie = await getMovies() // await를 붙여야만 하는 이유가 궁금하다
 
     let content = document.getElementById(`movie-content-${id}`).value;
     let rating = document.getElementById(`movie-rating-${id}`).value;
 
+    // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
     let response = await fetch(`${backend_base_url}/reviews/${id}/`, {
         headers: {
             'content-type': 'application/json',
@@ -70,7 +116,7 @@ async function postReview(id) {
     }
 }
 
-// 후기 Read 함수
+// mypage 후기 GET 함수
 async function getMypageReviews() {
     const payload = localStorage.getItem("payload");
     const payload_parse = JSON.parse(payload);
@@ -89,13 +135,10 @@ async function getMypageReviews() {
 }
 
 // 영화 랜덤 추천 함수
-
-async function getRandomMovies(movies, count){
+async function getRandomMovies(movies, count) {
     const shuffled = movies.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
-
-
 
 // 추천 영화 호출 함수
 async function handleLoadEvent() {
@@ -123,4 +166,11 @@ async function getSelectedMovie() {
     } else {
         alert("불러오는데 실패했습니다.")
     }
+}
+
+function checkSignin() {
+    const payload = localStorage.getItem("payload");
+    if (payload) {
+        window.location.replace(`${frontend_base_url}/`)
+    };
 }

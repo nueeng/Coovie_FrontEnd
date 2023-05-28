@@ -1,22 +1,40 @@
-<div class="top-logo">
-  <span>Movie Project</span>
-</div>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <title>nav_side</title>
+  </head>
 
-<div id="page-wrapper">
-  <!-- 사이드바 -->
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav" id="li-leftbar">
-      <li class="sidebar-brand">
-        <a href="index.html">Movie Project</a>
-      </li>
-      <li><a href="signin.html" id="li-signin">로그인</a></li>
-      <li><a href="signup.html" id="li-signup">회원가입</a></li>
-      <li><a href="mypage.html" id="mypage"></a></li>
-      <li><a href="review.html">영화 리뷰 게시판</a></li>
-      <li><a href="select_movie.html">AI에게 영화 추천받기</a></li>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="/">Movie Project</a>
+      </div>
+    </header>
 
-
-    </ul>
-  </div>
-  <!-- /사이드바 -->
-</div>
+    <div class="slide_btn">
+      <p>></p>
+    </div>
+    <div class="sidebar-wrap">
+      <ul class="sidebar-nav" id="li-leftbar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/signin.html" id="li-signin">로그인</a></li>
+        <li><a href="/signup.html" id="li-signup">회원가입</a></li>
+        <li><a href="/review.html">영화 리뷰 게시판</a></li>
+        <li><a href="/select_movie.html">AI에게 영화 추천 받기</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-wrap_login">
+      <ul class="sidebar-nav" id="li-leftbar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/mypage.html" id="login_user"></a></li>
+        <li><a href="/review.html">영화 리뷰 게시판</a></li>
+        <li><a href="/select_movie.html">AI에게 영화 추천 받기</a></li>
+        <li><a href="" id="log_out" onclick="handleLogout()">Log Out</a></li>
+      </ul>
+    </div>
+  </body>
+</html>
