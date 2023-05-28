@@ -70,7 +70,7 @@ window.addEventListener('load',async function(){
             MovieVote.innerHTML = `전문가평점 : ${movie.vote_average}`;
 
 
-            MovieCard.appendChild(MovieImg);
+            MovieCard.appendChild(MovieImg);``
             MovieCard.appendChild(MovieCardBody);
             MovieCardBody.appendChild(MovieTitle);
             MovieCardBody.appendChild(MovieOverview);
