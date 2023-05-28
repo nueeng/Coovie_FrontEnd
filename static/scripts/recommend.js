@@ -77,6 +77,8 @@ window.addEventListener('load', async function () {
         movieCard.setAttribute("class", "card col-2");
         movieCard.style.width = "16%";
         movieCard.style.marginBottom = "10px";
+        console.log(recommendMovie)
+
 
         const movieImg = document.createElement("img");
         movieImg.setAttribute("class", "card-img-top");
@@ -96,6 +98,13 @@ window.addEventListener('load', async function () {
         movieCard.appendChild(movieTitle);
 
         moviesContainer.appendChild(movieCard);
+
+        movieCard.addEventListener("click", function (){
+            const movieId = recommendMovie.id;
+            const detailPageUrl = `${frontend_base_url}/recommend.html?movieId=${movieId}`;
+            window.location.href = detailPageUrl;
+
+        });
 
         movieCard.addEventListener("mouseover", function () {
             movieCard.style.transform = "scale(1.05)"; // 영화 카드 크기 조정
