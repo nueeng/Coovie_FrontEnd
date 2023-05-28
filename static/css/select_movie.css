@@ -20,3 +20,8 @@
     background-color: rgb(116, 14, 14);
     color: #FFF6C3;
 }
+
+.wrap-left-250 {
+    padding: 130px 250px 150px;
+    height: auto !important;
+}
