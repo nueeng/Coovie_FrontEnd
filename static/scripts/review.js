@@ -87,7 +87,7 @@ function displayMovies(movies) {
             // 리뷰 GET 박스
             const newReviewRow = document.createElement("div");
             newReviewRow.setAttribute("class", "row mt-3");
-            newReviewRow.style.backgroundColor = "aliceblue";
+            newReviewRow.style.backgroundColor = "white";
             newReviewRow.style.borderRadius = "15px";
             // 리뷰 컨텐츠
             const newReviewContnet = document.createElement("p");
@@ -188,7 +188,7 @@ async function renderPage(index) {
     const movieList = document.getElementById("review-movie");
     movieList.innerHTML = "";
     const pagination = document.getElementById("paginator")
-    // pagination.innerHTML = "";
+    pagination.innerHTML = "";
     // 다시 불러와서..
     movies = await getPaginatedMovies(index);
     reviews = await getReviewPageReviews();
