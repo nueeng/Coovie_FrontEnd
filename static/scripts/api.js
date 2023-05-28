@@ -8,10 +8,6 @@ const urlParams = new URLSearchParams(queryString);
 // movieId 쿼리 파라미터 값 가져오기
 const movieId = urlParams.get('movieId');
 
-// movieId 값을 활용하여 필요한 작업 수행
-// 예시: 해당 영화의 상세 정보를 가져와서 화면에 표시하는 등의 작업
-console.log('Selected movie ID:', movieId);
-
 
 // Signin 함수
 async function handleSignin() {
@@ -38,7 +34,7 @@ async function handleSignup() {
     const password = document.getElementById("password").value
     const re_password = document.getElementById("re_password").value
     const email = document.getElementById("email").value
-    // ${backend_base_url}
+
     const response = await fetch(`${backend_base_url}/users/sign-up/`, {
         headers: {
             "content-type": "application/json",
@@ -51,7 +47,6 @@ async function handleSignup() {
             "re_password": re_password
         })
     })
-
     return response
 }
 
