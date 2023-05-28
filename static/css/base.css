@@ -255,3 +255,7 @@ footer>p {
     color: white;
 }
 /* footer 관련 css 끝 */
+
+.img-github {
+    max-width: 35px;
+}
