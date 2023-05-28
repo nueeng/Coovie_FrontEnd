@@ -10,7 +10,7 @@ const movieId = urlParams.get('movieId');
 
 // movieId 값을 활용하여 필요한 작업 수행
 // 예시: 해당 영화의 상세 정보를 가져와서 화면에 표시하는 등의 작업
-console.log('Selected movie ID:', movieId);
+// console.log('Selected movie ID:', movieId);
 
 
 // Signin 함수
@@ -115,7 +115,6 @@ async function postReview(id) {
         // 새로고침 후 스크롤이 이동되었으면 좋겠는데.. 실패
         document.getElementById(`movie-content-${id}`).scrollIntoView();
     } else {
-        console.log(response)
         // validation을 원래 따로 다 이렇게?? 백엔드에서 해놓은건 의미가 없나?
         alert(response.status)
     }
