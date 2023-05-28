@@ -6,7 +6,7 @@ async function handleSignupButton() {
 
     if (password === re_password) {
         if (response.status == 201) {
-            alert("회원가입을 축하합니다!")
+            alert("회원가입을 축하합니다! 회원가입시 입력하신 이메일 주소에서 본인 인증을 진행하신 후 로그인해 주세요!")
             window.location.replace(`${frontend_base_url}/signin.html`)
         }
     } else {
