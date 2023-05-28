@@ -1,7 +1,6 @@
 window.onload = async function loadReviews() {
     const reviews = await getMypageReviews();
     const user_reviews = reviews.user_reviews;
-    console.log(user_reviews)
 
     const reviewBox = document.getElementById("review_box");
 
@@ -41,6 +40,7 @@ window.onload = async function loadReviews() {
         const updateBtn = document.createElement("button");
         updateBtn.classList.add("btn", "btn-primary", "update-btn");
         updateBtn.textContent = "수정";
+        updateBtn.style.marginRight = "5px";
         btnCell.appendChild(updateBtn);
 
         const deleteBtn = document.createElement("button");
@@ -91,7 +91,6 @@ window.onload = async function loadReviews() {
                     // rating 값이 무조건 float형으로 들어가야 하므로 parseFloat과 toFixed(1)을 활용해 소수점 아래 1자리로 값을 제한합니다.
                     // rating을 IntegerField로 바꾸면서 int로 바꿨습니다!
                     const intRating = parseInt(updatedRating)
-                    console.log(intRating)
                     const response = await fetch(`${backend_base_url}/reviews/${review.movie[0]}/${review.id}/`, {
                         method: "PUT",
                         headers: {

@@ -1,48 +1,99 @@
 * {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    box-sizing: border-box;
-    text-decoration: none;
-    color: black;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
 }
 
 /* body 관련 css 시작 */
-html,body {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(200, 200, 200, 1);
-}
-
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 body {
-    -ms-overflow-style: none;
+  -ms-overflow-style: none;
 }
 /* body 관련 css 끝 */
 
+
 .review-movies {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .movie-item {
-    width: calc(33.33% - 10px);
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .movie-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px 5px 0 0;
-  }
-  
-  .movie-item h3 {
-    margin: 10px;
-  }
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-item {
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.movie-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0;
+}
+
+.movie-item h3 {
+  margin: 10px;
+}
+
+.col-2 {
+  width: 200px !important;
+  height: 350px !important;
+}
+
+#review-movies{
+  margin: 0px 50px;
+}
+
+.intro_1,.intro_2,.intro_3,.intro_4,.intro_5 {
+  display: block !important;
+  font-size: 20px;
+  margin-bottom: 15px !important;
+  margin-left: 50px;
+}
+
+.intro_1 {
+  width: 350px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.intro_2 > span {
+  color: rgba(139, 0, 0, 1);
+  transition: 0.2s;
+}
+
+.intro_2 > span:hover{
+  font-size: 30px;
+  font-weight: bold;
+  transition: 0.2s;
+  color: #FFF6C3;
+}
+
+.intro_4 > span {
+  color: rgba(139, 0, 0, 1);
+  transition: 0.2s;
+}
+
+.intro_4 > span:hover {
+  font-size: 30px;
+  font-weight: bold;
+  transition: 0.2s;
+  color: #FFF6C3;
+
+}
+
+#plate {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}

@@ -9,12 +9,12 @@ window.addEventListener('load', async function () {
     movies.forEach(movie => {
         const MovieImg = document.createElement("img");
         MovieImg.setAttribute("class", "card-img-top");
-        MovieImg.setAttribute("alt", "https://user-images.githubusercontent.com/127704498/240243854-3122696a-1247-442b-9f4b-4bf357419313.jpg");
+        MovieImg.setAttribute("alt", "/static/images/plate.jpg");
 
         if (movie.poster_path) {
             MovieImg.setAttribute("src", movie.poster_path);
         } else {
-            MovieImg.setAttribute("src", "https://user-images.githubusercontent.com/127704498/240243854-3122696a-1247-442b-9f4b-4bf357419313.jpg");
+            MovieImg.setAttribute("src", "/static/images/plate.jpg");
         }
         //영화 포스터 클릭시 상세 페이지로 이동
         MovieImg.addEventListener("click", function () {

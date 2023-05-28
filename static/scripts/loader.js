@@ -77,4 +77,5 @@ async function handleLogout() {
     localStorage.removeItem("access")
     localStorage.removeItem("refresh")
     localStorage.removeItem("payload")
+    alert("로그아웃 했습니다!")
 }

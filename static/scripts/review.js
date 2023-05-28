@@ -206,7 +206,7 @@ function checkLogin() {
 }
 
 let page = 1
-// 
+
 // 페이지 렌더링 함수, 페이지별로 렌더링 하게끔 변경했습니다
 async function renderPage(index) {
     // Movie/Review HTML을 초기화 한 후에
@@ -218,8 +218,6 @@ async function renderPage(index) {
     movies = await getPaginatedMovies(index);
     reviews = await getReviewPageReviews();
 
-    console.log(movies);
-    console.log(reviews);
     // 렌더링 - 좋은 방식은 아닌 것 같습니다.. 주소창에 ?page=1라는 query도 안생기고
     displayMovies(movies);
 
@@ -242,15 +240,9 @@ async function handlePagination(page) {
         lastNum = totalPage
     }
     let firstNum = lastNum - (pageCount - 1)
-    console.log("totalPage", totalPage)
-    console.log("page", page)
-    console.log("pageGroup", pageGroup)
-    console.log("first", firstNum)
-    console.log("last", lastNum)
 
     // ul
     const pagination = document.getElementById("paginator")
-    console.log(pagination)
 
     // prev 버튼
     // li 생성
@@ -336,11 +328,10 @@ function likeReview(movie_id, review_id) {
                 likesCount.text(currentLikesCount + 1);
             }
 
-            console.log(response.message);
             alert(response.message);
         },
         error: function (response) {
-            console.log(response);
+            alert(response.message);
         }
     });
 }

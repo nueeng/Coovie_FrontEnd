@@ -18,6 +18,7 @@ window.addEventListener('load', async function () {
     const movieTitle = document.createElement("h4");
     movieTitle.setAttribute("class", "card-title");
     movieTitle.innerHTML = selectedMovie.title;
+    movieTitle.style.marginBottom = "20px";
 
     const movieOverview = document.createElement("p");
     movieOverview.setAttribute("class", "card-text");
@@ -25,6 +26,8 @@ window.addEventListener('load', async function () {
 
     const movieDetailsList = document.createElement("ul");
     movieDetailsList.setAttribute("class", "list-group list-group-flush");
+    movieDetailsList.style.marginTop = "20px";
+    movieDetailsList.style.borderRadius = "10px";
 
     const movieRelease = document.createElement("li");
     movieRelease.setAttribute("class", "list-group-item");
@@ -64,7 +67,7 @@ window.addEventListener('load', async function () {
     selectedmovieContainer.appendChild(cardContainer);
 
 
-    
+
     const recommendMovies = await handleLoadEvent();
     const moviesContainer = document.getElementById('random-movies');
 
@@ -88,6 +91,7 @@ window.addEventListener('load', async function () {
         } else {
             movieImg.setAttribute("src", "https://user-images.githubusercontent.com/127704498/240243854-3122696a-1247-442b-9f4b-4bf357419313.jpg");
         }
+        movieImg.style.borderRadius = "10px";
 
         const movieTitle = document.createElement("h5");
         movieTitle.setAttribute("class", "card-title");
@@ -99,7 +103,7 @@ window.addEventListener('load', async function () {
 
         moviesContainer.appendChild(movieCard);
 
-        movieCard.addEventListener("click", function (){
+        movieCard.addEventListener("click", function () {
             const movieId = recommendMovie.id;
             const detailPageUrl = `${frontend_base_url}/recommend.html?movieId=${movieId}`;
             window.location.href = detailPageUrl;
