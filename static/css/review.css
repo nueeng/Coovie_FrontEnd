@@ -7,11 +7,6 @@
     color: black;
 }
 
-.wrap-left-250 {
-    padding: 130px 250px 150px;
-    height: auto !important;
-}
-
 .pagination-container {
     display: flex;
     justify-content: center;

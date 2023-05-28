@@ -11,7 +11,6 @@
 html,
 body {
     width: 100%;
-    /* background-color: rgba(200, 200, 200, 1); */
 }
 
 body::-webkit-scrollbar {
@@ -34,9 +33,11 @@ body {
 }
 
 /* footer 위치 관련 */
-.wrap-left-250 {
-    height: auto !important;
-}
+/* .wrap-left-250 {
+    height: auto;
+    min-height: 100% !important;
+    padding-bottom: 70px;
+} */
 /* body 관련 css 끝 */
 
 /* 마이 페이지 관련css */
