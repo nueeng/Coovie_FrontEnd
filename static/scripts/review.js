@@ -206,7 +206,7 @@ function checkLogin() {
 }
 
 let page = 1
-// 
+
 // 페이지 렌더링 함수, 페이지별로 렌더링 하게끔 변경했습니다
 async function renderPage(index) {
     // Movie/Review HTML을 초기화 한 후에
