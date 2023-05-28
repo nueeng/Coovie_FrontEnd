@@ -12,6 +12,15 @@ async function injectNavbar() {
                 const login_user = document.getElementById("login_user")
                 login_user.innerText = payload_parse.user_name
 
+                const is_admin = payload_parse.is_admin;
+                const saveLink = document.querySelector('#save_link');
+
+                if (is_admin) {
+                    saveLink.style.display = 'block'; // is_admin이 true인 경우 보이도록 설정
+                } else {
+                    saveLink.style.display = 'none'; // is_admin이 false인 경우 숨기도록 설정
+                }
+
                 const slideBtn = document.querySelector('.slide_btn');
                 const sidebar = document.querySelector('.sidebar-wrap');
                 const sidebar_login = document.querySelector('.sidebar-wrap_login');
