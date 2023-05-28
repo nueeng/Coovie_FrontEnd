@@ -1,5 +1,5 @@
 .reload_btn {
-    margin: 0px auto;
+    margin: 100px auto;
     text-align: center;
     width: 200px;
     height: 60px;
@@ -24,4 +24,12 @@
 .wrap-left-250 {
     padding: 130px 250px 150px;
     height: auto !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
 }
