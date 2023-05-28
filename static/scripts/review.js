@@ -101,8 +101,11 @@ function displayMovies(movies) {
             newReviewUser.style.textAlign = "end";
             // 리뷰 평점 -> 별로 표기 연구
             const newReviewRating = document.createElement("span");
-            newReviewRating.innerHTML = `평점 : ${review.rating}`;
-            newReviewRating.style.color = "orange";
+            if (review.rating == "0") {
+                newReviewRating.textContent = '❌';
+            } else {
+                newReviewRating.textContent = getStarRating(review.rating);
+            }
             // 리뷰 좋아요 -> 버튼으로 누르면 좋아요 오르게끔 구현할수있을까
             const newReviewLike = document.createElement("span");
             newReviewLike.innerHTML = `좋아요 : ${review.likes_count}`;
@@ -130,45 +133,52 @@ function displayMovies(movies) {
         reviewContent.setAttribute("aria-label", "default input example.");
         reviewContent.setAttribute("id", `movie-content-${movie.id}`);
         // 리뷰 별점 div
-        const reviewRatingDiv = document.createElement("div");
-        reviewRatingDiv.setAttribute("class", "container mt-2");
-        reviewRatingDiv.style.width = "40%";
-        reviewRatingDiv.style.display = "inline-block";
+        const reviewPostDiv = document.createElement("div");
+        reviewPostDiv.setAttribute("class", "container mt-2");
+        reviewPostDiv.style.width = "40%";
+        reviewPostDiv.style.display = "inline-block";
         // 리뷰 별점 설명
-        const reviewRatingLabel = document.createElement("label");
-        reviewRatingLabel.setAttribute("class", "form-label");
-        reviewRatingLabel.setAttribute("for", `movie-rating-${movie.id}`);
+        const reviewPostLabel = document.createElement("label");
+        reviewPostLabel.setAttribute("class", "form-label");
+        reviewPostLabel.setAttribute("for", `movie-rating-${movie.id}`);
         // 전문가 평점이 10점만점이라 조금 어색한거같기도하고 그대로해도 될것같기도하고
-        reviewRatingLabel.innerHTML = "평점(0 ~ 5)";
+        reviewPostLabel.innerHTML = "평점(0 ~ 5)";
         // 리뷰 별점 input
-        const reviewRatingInput = document.createElement("input");
-        reviewRatingInput.setAttribute("type", "range");
-        reviewRatingInput.setAttribute("class", "form-range");
-        reviewRatingInput.setAttribute("min", "0");
-        reviewRatingInput.setAttribute("max", "5");
-        reviewRatingInput.setAttribute("step", "0.5");
-        reviewRatingInput.setAttribute("id", `movie-rating-${movie.id}`); // id 중복되니까 각자 다른 url로 들어가게 작성해서 버튼도 해야함
+        const reviewPostInput = document.createElement("input");
+        reviewPostInput.setAttribute("type", "range");
+        reviewPostInput.setAttribute("class", "form-range");
+        reviewPostInput.setAttribute("min", "0");
+        reviewPostInput.setAttribute("max", "5");
+        reviewPostInput.setAttribute("step", "1");
+        reviewPostInput.setAttribute("id", `movie-rating-${movie.id}`); // id 중복되니까 각자 다른 url로 들어가게 작성해서 버튼도 해야함
         // 리뷰 제출 버튼
-        const reviewRatingBtn = document.createElement("button");
-        reviewRatingBtn.setAttribute("type", "button");
-        reviewRatingBtn.setAttribute("class", "btn btn-danger");
-        reviewRatingBtn.setAttribute("id", `movie-button-${movie.id}`);
+        const reviewPostBtn = document.createElement("button");
+        reviewPostBtn.setAttribute("type", "button");
+        reviewPostBtn.setAttribute("class", "btn btn-danger");
+        reviewPostBtn.setAttribute("id", `movie-button-${movie.id}`);
         // 버튼에 movie.id 주고, postReview()함수에 movie.id 자체를 parameter로 넣어서 postReview(id)에서 id를 모두 돌려서 사용할 수 있도록..!
-        reviewRatingBtn.setAttribute("onclick", `postReview(${movie.id})`);
-        reviewRatingBtn.style.float = "right";
-        reviewRatingBtn.style.display = "inline";
-        reviewRatingBtn.style.marginTop = "10px";
-        reviewRatingBtn.innerHTML = "작성하기";
+        reviewPostBtn.setAttribute("onclick", `postReview(${movie.id})`);
+        reviewPostBtn.style.float = "right";
+        reviewPostBtn.style.display = "inline";
+        reviewPostBtn.style.marginTop = "10px";
+        reviewPostBtn.innerHTML = "작성하기";
 
         newReviewCol.appendChild(reviewForm);
         reviewForm.appendChild(reviewContent);
-        reviewForm.appendChild(reviewRatingDiv);
-        reviewRatingDiv.appendChild(reviewRatingLabel);
-        reviewRatingDiv.appendChild(reviewRatingInput);
-        reviewForm.appendChild(reviewRatingBtn);
+        reviewForm.appendChild(reviewPostDiv);
+        reviewPostDiv.appendChild(reviewPostLabel);
+        reviewPostDiv.appendChild(reviewPostInput);
+        reviewForm.appendChild(reviewPostBtn);
     });
 };
 
+function getStarRating(rating) {
+    let stars = '';
+    for (let i = 0; i < rating; i++) {
+        stars += '⭐️';
+    }
+    return stars;
+}
 
 // 로그인 상태를 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
 // getElementsByClassName로 가져온 객체는 HTMLinclude라는 살아있는 객체. 그래서 Array.from으로 배열에 따로 담아줘야 합니다. 이후 for문
