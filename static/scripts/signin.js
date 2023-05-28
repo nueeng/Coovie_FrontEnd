@@ -26,7 +26,6 @@ async function handleSigninButton() {
         // return Response({msg:'아이디는 필수값입니다})
         // if password == null
         const response_json = await response.json()
-        console.log(response_json)
         alert(response_json.user_name)
     }
 }
