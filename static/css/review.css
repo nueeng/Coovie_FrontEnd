@@ -11,3 +11,9 @@
     padding: 130px 250px 150px;
     height: auto !important;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -20,7 +20,14 @@ async function handleSigninButton() {
         // ${frontend_base_url}
         window.location.replace(`${frontend_base_url}/`)
     } else {
-        alert("회원정보가 일치하지 않습니다.")
+        // foreach로 돌리면 되긴한다!
+        // return Response
+        // id =null
+        // return Response({msg:'아이디는 필수값입니다})
+        // if password == null
+        const response_json = await response.json()
+        console.log(response_json)
+        alert(response_json.user_name)
     }
 }
 
