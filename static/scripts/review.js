@@ -3,7 +3,7 @@ function displayMovies(movies) {
     const movie_list = document.getElementById("review-movie");
 
     // Pagination 하면서 response가 object의 results속성에 영화가 담기는거로 바뀌어서 .results 추가
-    movies.results.forEach(movie => {
+    movies.forEach(movie => {
         // 카드 이미지
         const newMovieImg = document.createElement("img");
         newMovieImg.setAttribute("class", "card-img-top");
@@ -47,9 +47,9 @@ function displayMovies(movies) {
         // Movie li 장르
         const newMovieGenre = document.createElement("li");
         newMovieGenre.setAttribute("class", "list-group-item");
-        for (genre = 0; genre < movie.genres.length; genre++) {
-            newMovieGenre.innerHTML += `${movie.genres[genre]}, `;
-        }
+        // for (genre = 0; genre < movie.genres.length; genre++) {
+        //     newMovieGenre.innerHTML += `${movie.genres[genre]}, `;
+        // }
         // replace() 메서드가 문자열을 수정하는 것이 아니라 새로운 문자열을 반환하기 때문에 =로 지정해줘야한다.
         newMovieGenre.innerHTML = newMovieGenre.innerHTML.replace(/,\s*$/, "");
         // Movie li 평점
@@ -281,7 +281,13 @@ async function handlePagination(page) {
         // a 생성
         const pageLink = document.createElement("a");
         pageLink.setAttribute("class", "page-link")
-        pageLink.setAttribute("onclick", `renderPage(${i})`)
+        pageLink.addEventListener("click", (function (pageNum) {
+            return function () {
+            let page = pageNum;
+            let pageUrl = `${frontend_base_url}/review.html?page=${page}`;
+            window.location.href = pageUrl
+        };
+    })(i));
         pageLink.innerHTML = i
         pageLink.href = "javascript:;"
 
