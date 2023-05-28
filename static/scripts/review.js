@@ -205,17 +205,16 @@ function checkLogin() {
     }
 }
 
-let page = 1
 
 // 페이지 렌더링 함수, 페이지별로 렌더링 하게끔 변경했습니다
-async function renderPage(index) {
+async function renderPage() {
     // Movie/Review HTML을 초기화 한 후에
     const movieList = document.getElementById("review-movie");
     movieList.innerHTML = "";
     const pagination = document.getElementById("paginator")
     pagination.innerHTML = "";
     // 다시 불러와서..
-    movies = await getPaginatedMovies(index);
+    movies = await getPaginatedMovies();
     reviews = await getReviewPageReviews();
 
     // 렌더링 - 좋은 방식은 아닌 것 같습니다.. 주소창에 ?page=1라는 query도 안생기고
@@ -223,15 +222,19 @@ async function renderPage(index) {
 
     checkLogin();
 
-    page = index
-    handlePagination(page)
+    handlePagination()
 }
 
-async function handlePagination(page) {
-    movies = await getPaginatedMovies(page)
+async function handlePagination() {
+    movies = await getPaginatedMovies()
+    const pageUrlParams = new URLSearchParams(queryString);
+    let page = pageUrlParams.get('page');
+    if (page == null) {
+        page = 1
+    }
 
-    // 한 페이지에 보여줄 리뷰 목록이 10개. 변경시 여기도 변경해줘야함
-    let totalPage = Math.ceil(movies.count / 10);
+    // 한 페이지에 보여줄 리뷰 목록이 20개. 변경시 여기도 변경해줘야함
+    let totalPage = 200
     // Page 그룹계산(Group = nav바에 띄울 Num의 수)
     const pageCount = 7;
     let pageGroup = Math.ceil(page / pageCount);
@@ -252,9 +255,14 @@ async function handlePagination(page) {
     const prevLink = document.createElement("a");
     prevLink.setAttribute("class", "page-link")
     prevLink.innerHTML = "이전"
-    prevLink.href = "javascript:;"
     if (page >= 2) {
-        prevLink.setAttribute("onclick", `renderPage(${page - 1})`)
+        prevLink.addEventListener("click", (function (pageNum) {
+            return function () {
+                let prevPage = parseInt(pageNum) - 1;
+                let pageUrl = `${frontend_base_url}/review.html?page=${prevPage}`;
+                window.location.href = pageUrl
+            };
+        })(page));
     } else {
         prevLink.classList.add("disabled");
     }
@@ -275,13 +283,13 @@ async function handlePagination(page) {
         pageLink.setAttribute("class", "page-link")
         pageLink.addEventListener("click", (function (pageNum) {
             return function () {
-            let page = pageNum;
-            let pageUrl = `${frontend_base_url}/review.html?page=${page}`;
-            window.location.href = pageUrl
-        };
-    })(i));
+                let page = pageNum;
+                let pageUrl = `${frontend_base_url}/review.html?page=${page}`;
+                window.location.href = pageUrl
+            };
+        })(i));
         pageLink.innerHTML = i
-        pageLink.href = "javascript:;"
+        // pageLink.href = "javascript:;"
 
         pageLi.appendChild(pageLink)
         pagination.appendChild(pageLi)
@@ -295,9 +303,14 @@ async function handlePagination(page) {
     const nextLink = document.createElement("a");
     nextLink.setAttribute("class", "page-link")
     nextLink.innerHTML = "다음"
-    nextLink.href = "javascript:;"
-    if (page < Math.ceil(movies.count / 10)) {
-        nextLink.setAttribute("onclick", `renderPage(${page + 1})`)
+    if (page < 200) {
+        nextLink.addEventListener("click", (function (pageNum) {
+            return function () {
+                let nextPage = parseInt(pageNum) + 1;
+                let pageUrl = `${frontend_base_url}/review.html?page=${nextPage}`;
+                window.location.href = pageUrl;
+            };
+        })(page));
     } else {
         nextLink.classList.add("disabled");
     }
@@ -336,4 +349,4 @@ function likeReview(movie_id, review_id) {
     });
 }
 
-renderPage(page)
+renderPage()
