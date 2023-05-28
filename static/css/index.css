@@ -22,3 +22,27 @@ body {
     -ms-overflow-style: none;
 }
 /* body 관련 css 끝 */
+
+.review-movies {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .movie-item {
+    width: calc(33.33% - 10px);
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .movie-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .movie-item h3 {
+    margin: 10px;
+  }
