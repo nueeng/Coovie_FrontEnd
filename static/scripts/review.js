@@ -1,11 +1,9 @@
-window.addEventListener('load', async function () {
-
-    movies = await getMovies()
-    reviews = await getReviewpageReviews()
-
+// Movie API, Review 불러오는 함수 모듈화
+function displayMovies(movies) {
     const movie_list = document.getElementById("review-movie");
 
-    movies.forEach(movie => {
+    // Pagination 하면서 response가 object의 results속성에 영화가 담기는거로 바뀌어서 .results 추가
+    movies.results.forEach(movie => {
         // 카드 이미지
         const newMovieImg = document.createElement("img");
         newMovieImg.setAttribute("class", "card-img-top");
@@ -169,17 +167,121 @@ window.addEventListener('load', async function () {
         reviewRatingDiv.appendChild(reviewRatingInput);
         reviewForm.appendChild(reviewRatingBtn);
     });
-    // 로그인한지 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
-    // getElementsByClassName로 가져온 객체는 HTMLinclude라는 살아있는 객체. 그래서 Array.from으로 배열에 따로 담아줘야 합니다. 이후 for문
-    function checkLogin() {
-        const payload = localStorage.getItem("payload");
-        const postReviewForms = document.getElementsByClassName("row-1");
-        const postReviewFormsArray = Array.from(postReviewForms);
-        if (!payload) {
-            postReviewFormsArray.forEach(postReviewForm => postReviewForm.style.display = "none");
-        }
+};
+
+
+// 로그인 상태를 체크하는 함수입니다. 로그인하지 않아 token값(payload)이 없다면 글작성 폼을 display = none으로 바꿉니다.
+// getElementsByClassName로 가져온 객체는 HTMLinclude라는 살아있는 객체. 그래서 Array.from으로 배열에 따로 담아줘야 합니다. 이후 for문
+function checkLogin() {
+    const payload = localStorage.getItem("payload");
+    const postReviewForms = document.getElementsByClassName("row-1");
+    const postReviewFormsArray = Array.from(postReviewForms);
+    if (!payload) {
+        postReviewFormsArray.forEach(postReviewForm => postReviewForm.style.display = "none");
     }
+}
+
+let page = 1
+// 페이지별로 렌더링 하게끔 변경했습니다
+async function renderPage(index) {
+    // Movie/Review HTML을 초기화 한 후에
+    const movieList = document.getElementById("review-movie");
+    movieList.innerHTML = "";
+    const pagination = document.getElementById("paginator")
+    // pagination.innerHTML = "";
+    // 다시 불러와서..
+    movies = await getPaginatedMovies(index);
+    reviews = await getReviewPageReviews();
+
+    console.log(movies);
+    console.log(reviews);
+    // 렌더링 - 좋은 방식은 아닌 것 같습니다.. 주소창에 ?page=1라는 query도 안생기고
+    displayMovies(movies);
 
     checkLogin();
-});
 
+    page = index
+    handlePagination(page)
+}
+
+async function handlePagination(page) {
+    movies = await getPaginatedMovies(page)
+
+    // 한 페이지에 보여줄 리뷰 목록이 10개. 변경시 여기도 변경해줘야함
+    let totalPage = Math.ceil(movies.count / 10);
+    // Page 그룹계산(Group = nav바에 띄울 Num의 수)
+    const pageCount = 7;
+    let pageGroup = Math.ceil(page / pageCount);
+    let lastNum = pageGroup * pageCount;
+    if (lastNum > totalPage) {
+        lastNum = totalPage
+    }
+    let firstNum = lastNum - (pageCount - 1)
+    console.log("totalPage", totalPage)
+    console.log("page", page)
+    console.log("pageGroup", pageGroup)
+    console.log("first", firstNum)
+    console.log("last", lastNum)
+
+    // ul
+    const pagination = document.getElementById("paginator")
+    console.log(pagination)
+
+    // prev 버튼
+    // li 생성
+    const prevLi = document.createElement("li");
+    prevLi.setAttribute("class", "page-item")
+    // a 생성
+    const prevLink = document.createElement("a");
+    prevLink.setAttribute("class", "page-link")
+    prevLink.innerHTML = "이전"
+    prevLink.href = "javascript:;"
+    if (page >= 2) {
+        prevLink.setAttribute("onclick", `renderPage(${page - 1})`)
+    } else {
+        prevLink.classList.add("disabled");
+    }
+
+    prevLi.appendChild(prevLink)
+    pagination.appendChild(prevLi)
+
+    // pageNum
+    // 현재 페이지 포함 좌우로 몇개를 띄울 것인지
+
+    // li 생성
+    // for문으로 back의 page_size였던 10으로 데이터수를 나눈 뒤 올림처리(Math.ceil)
+    for (i = firstNum; i <= lastNum; i++) {
+        const pageLi = document.createElement("li");
+        pageLi.setAttribute("class", "page-item")
+        // a 생성
+        const pageLink = document.createElement("a");
+        pageLink.setAttribute("class", "page-link")
+        pageLink.setAttribute("onclick", `renderPage(${i})`)
+        pageLink.innerHTML = i
+        pageLink.href = "javascript:;"
+
+        pageLi.appendChild(pageLink)
+        pagination.appendChild(pageLi)
+    }
+
+    // next 버튼
+    // li 생성
+    const nextLi = document.createElement("li");
+    nextLi.setAttribute("class", "page-item")
+    // a 생성
+    const nextLink = document.createElement("a");
+    nextLink.setAttribute("class", "page-link")
+    nextLink.innerHTML = "다음"
+    nextLink.href = "javascript:;"
+    if (page < Math.ceil(movies.count / 10)) {
+        nextLink.setAttribute("onclick", `renderPage(${page + 1})`)
+    } else {
+        nextLink.classList.add("disabled");
+    }
+
+    nextLi.appendChild(nextLink)
+    pagination.appendChild(nextLi)
+
+}
+
+renderPage(page)

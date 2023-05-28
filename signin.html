@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/signin.css" />
+    <title>Sign In</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/css/signin.css">
-  <title>Sign In</title>
-</head>
-
-<body>
-  <header></header>
-  <div class="main">
-    <div class="banner">
-      <p>Sign In</p>
+  <body>
+    <header></header>
+    <div class="main">
+      <div class="banner">
+        <p>Sign In</p>
+      </div>
+      <form class="form">
+        <div class="inputs">
+          <label for="user_name">ID</label>
+          <input type="user_name" id="user_name" name="user_name" />
+        </div>
+        <div class="inputs">
+          <label for="password">비밀번호</label>
+          <input type="password" id="password" name="password" />
+        </div>
+        <div class="button_box">
+          <button type="button" onclick="handleSigninButton()">로그인</button>
+          <a href="/signup.html">회원가입 페이지로</a>
+        </div>
+      </form>
     </div>
-    <form class="form">
-      <div class="inputs">
-        <label for="user_name">ID</label>
-        <input type="user_name" id="user_name" name="user_name">
-      </div>
-      <div class="inputs">
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password">
-      </div>
-      <div class="button_box">
-        <button type="button" onclick="handleSigninButton()">로그인</button>
-        <a href="/signup.html">회원가입 페이지로</a>
-      </div>
-    </form>
-  </div>
-  <footer></footer>
-  <script src="/static/scripts/api.js"></script>
-  <script defer src="/static/scripts/signin.js"></script>
-  <script defer src="/static/scripts/loader.js"></script>
-</body>
-
+    <footer></footer>
+    <script src="/static/scripts/api.js"></script>
+    <script defer src="/static/scripts/signin.js"></script>
+    <script defer src="/static/scripts/loader.js"></script>
+  </body>
 </html>
