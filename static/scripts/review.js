@@ -88,12 +88,13 @@ function displayMovies(movies) {
             const newReviewRow = document.createElement("div");
             newReviewRow.setAttribute("class", "row mt-3");
             newReviewRow.style.backgroundColor = "white";
-            newReviewRow.style.borderRadius = "15px";
+            newReviewRow.style.borderRadius = "7px";
             // 리뷰 컨텐츠
             const newReviewContnet = document.createElement("p");
             newReviewContnet.innerHTML = review.content;
             newReviewContnet.style.display = "inline";
             newReviewContnet.style.fontSize = "1.2rem";
+            newReviewContnet.style.marginTop = "7px";
             // 리뷰 작성자
             const newReviewUser = document.createElement("span");
             newReviewUser.innerHTML = review.user;
@@ -106,15 +107,29 @@ function displayMovies(movies) {
             } else {
                 newReviewRating.textContent = getStarRating(review.rating);
             }
-            // 리뷰 좋아요 -> 버튼으로 누르면 좋아요 오르게끔 구현할수있을까
-            const newReviewLike = document.createElement("span");
-            newReviewLike.innerHTML = `좋아요 : ${review.likes_count}`;
-            newReviewLike.style.color = "crimson";
+            // 리뷰 좋아요 버튼
+            const newReviewLikeBtn = document.createElement("button");
+            newReviewLikeBtn.setAttribute("type", "button")
+            newReviewLikeBtn.setAttribute("id", `button-${review.id}`)
+            // parameter 두개일 때는 ${} 안에서 두개 써주기
+            newReviewLikeBtn.setAttribute("onclick", `likeReview(${movie.id}, ${review.id})`)
+            newReviewLikeBtn.classList = "btn btn-outline-danger btn-sm"
+            newReviewLikeBtn.style.maxWidth = "100px"
+            newReviewLikeBtn.style.margin = "7px"
+            // 리뷰 좋아요 버튼의 하트문자열
+            const newReviewLikeHeart = document.createElement("span");
+            newReviewLikeHeart.textContent = "❤ 좋아요 : "
+            // 리뷰 좋아요 버튼의 값
+            const newReviewLikeValue = document.createElement("span");
+            newReviewLikeValue.setAttribute("id", "likeCount")
+            newReviewLikeValue.textContent = `${review.likes_count}`;
 
             newReviewRow.appendChild(newReviewContnet);
             newReviewRow.appendChild(newReviewUser);
             newReviewRow.appendChild(newReviewRating);
-            newReviewRow.appendChild(newReviewLike);
+            newReviewRow.appendChild(newReviewLikeBtn);
+            newReviewLikeBtn.appendChild(newReviewLikeHeart);
+            newReviewLikeBtn.appendChild(newReviewLikeValue);
 
             newReviewCol.appendChild(newReviewRow);
 
@@ -150,13 +165,12 @@ function displayMovies(movies) {
         reviewPostInput.setAttribute("min", "0");
         reviewPostInput.setAttribute("max", "5");
         reviewPostInput.setAttribute("step", "1");
-        reviewPostInput.setAttribute("id", `movie-rating-${movie.id}`); // id 중복되니까 각자 다른 url로 들어가게 작성해서 버튼도 해야함
+        reviewPostInput.setAttribute("id", `movie-rating-${movie.id}`);
         // 리뷰 제출 버튼
         const reviewPostBtn = document.createElement("button");
         reviewPostBtn.setAttribute("type", "button");
         reviewPostBtn.setAttribute("class", "btn btn-danger");
         reviewPostBtn.setAttribute("id", `movie-button-${movie.id}`);
-        // 버튼에 movie.id 주고, postReview()함수에 movie.id 자체를 parameter로 넣어서 postReview(id)에서 id를 모두 돌려서 사용할 수 있도록..!
         reviewPostBtn.setAttribute("onclick", `postReview(${movie.id})`);
         reviewPostBtn.style.float = "right";
         reviewPostBtn.style.display = "inline";
@@ -192,7 +206,8 @@ function checkLogin() {
 }
 
 let page = 1
-// 페이지별로 렌더링 하게끔 변경했습니다
+// 
+// 페이지 렌더링 함수, 페이지별로 렌더링 하게끔 변경했습니다
 async function renderPage(index) {
     // Movie/Review HTML을 초기화 한 후에
     const movieList = document.getElementById("review-movie");
@@ -292,6 +307,36 @@ async function handlePagination(page) {
     nextLi.appendChild(nextLink)
     pagination.appendChild(nextLi)
 
+}
+
+// 좋아요 버튼 함수
+// Jquery를 통해 바로 동기화 될 수 있도록 해봤습니다.
+function likeReview(movie_id, review_id) {
+    $.ajax({
+        url: `${backend_base_url}/reviews/${movie_id}/${review_id}/like/`,
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        method: 'POST',
+        success: function (response) {
+            let likesCount = $(`#button-${review_id}`).find("#likeCount");
+            let currentLikesCount = parseInt(likesCount.text());
+
+            // Backend 메세지를 가지고 +-1해주는게 좋은 방식인지는 모르겠습니다
+            if (response.message === '좋아요 취소!') {
+                likesCount.text(currentLikesCount - 1);
+            } else if (response.message === '좋아요 성공!') {
+                likesCount.text(currentLikesCount + 1);
+            }
+
+            console.log(response.message);
+            alert(response.message);
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
 }
 
 renderPage(page)
