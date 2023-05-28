@@ -40,6 +40,7 @@ window.onload = async function loadReviews() {
         const updateBtn = document.createElement("button");
         updateBtn.classList.add("btn", "btn-primary", "update-btn");
         updateBtn.textContent = "수정";
+        updateBtn.style.marginRight = "5px";
         btnCell.appendChild(updateBtn);
 
         const deleteBtn = document.createElement("button");

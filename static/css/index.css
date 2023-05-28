@@ -96,3 +96,12 @@ body {
   color: #FFF6C3;
 
 }
+
+#plate {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
