@@ -27,6 +27,18 @@ async function getReviews() {
     }
 }
 
+async function getPaginatedMovies(page) {
+    const response = await fetch(`${backend_base_url}/movie/?page=${page}`)
+
+
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패했습니다.")
+    }
+}
+
 // Review POST API
 async function postReview(id) {
     // 이미지파일이 있으면 JSON 통신이 아닌 FormData를 이용해야합니다
@@ -53,7 +65,7 @@ async function postReview(id) {
         // 새로고침 후 스크롤이 이동되었으면 좋겠는데.. 실패
         document.getElementById(`movie-content-${id}`).scrollIntoView();
     } else {
-        console.log(response)
+
         // validation을 원래 따로 다 이렇게?? 백엔드에서 해놓은건 의미가 없나?
         alert(response.status)
     }
