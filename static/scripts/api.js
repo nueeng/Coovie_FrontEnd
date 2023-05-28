@@ -4,10 +4,20 @@ const token = localStorage.getItem("access")
 // URL에서 쿼리 파라미터 추출
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
+const pageId = urlParams.get('page');
 
 // movieId 쿼리 파라미터 값 가져오기
 const movieId = urlParams.get('movieId');
 
+async function getPaginatedMovies() {
+    const response = await fetch(`${backend_base_url}/movie/?page=${pageId}`)
+    if (response.status == 200) {
+        const response_json = await response.json()
+        return response_json
+    } else {
+        alert("불러오는데 실패했습니다.")
+    }
+}
 
 // Signin 함수
 async function handleSignin() {
@@ -62,16 +72,16 @@ async function getMovies() {
     }
 }
 
-async function getPaginatedMovies(page) {
-    const response = await fetch(`${backend_base_url}/movie/?page=${page}`)
+// async function getPaginatedMovies(page) {
+//     const response = await fetch(`${backend_base_url}/movie/?page=${page}`)
 
-    if (response.status == 200) {
-        const response_json = await response.json()
-        return response_json
-    } else {
-        alert("불러오는데 실패했습니다.")
-    }
-}
+//     if (response.status == 200) {
+//         const response_json = await response.json()
+//         return response_json
+//     } else {
+//         alert("불러오는데 실패했습니다.")
+//     }
+// }
 
 // Review GET API
 async function getReviewPageReviews() {
